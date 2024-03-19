@@ -1,0 +1,283 @@
+{
+  "version": "0.1.0",
+  "name": "liquidity_locker",
+  "instructions": [
+    {
+      "name": "lockPosition",
+      "accounts": [
+        {
+          "name": "whirlpool",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "position",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftToken",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "nftCustody",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "cliff",
+          "type": "u32"
+        },
+        {
+          "name": "start",
+          "type": "u32"
+        },
+        {
+          "name": "duration",
+          "type": "u32"
+        },
+        {
+          "name": "allowFeeClaim",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "unlockPosition",
+      "accounts": [
+        {
+          "name": "position",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "nftReceiveAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftCustody",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claimFees",
+      "accounts": [
+        {
+          "name": "whirlpool",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "whirlpoolPosition",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "position",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenOwnerAccountA",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenVaultA",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenOwnerAccountB",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenVaultB",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftCustody",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "whirlpoolProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Position",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "isInitialized",
+            "type": "bool"
+          },
+          {
+            "name": "whirlpool",
+            "type": "publicKey"
+          },
+          {
+            "name": "nftMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "cliff",
+            "type": "u32"
+          },
+          {
+            "name": "start",
+            "type": "u32"
+          },
+          {
+            "name": "duration",
+            "type": "u32"
+          },
+          {
+            "name": "allowFeeClaim",
+            "type": "bool"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "PositionIntitialized"
+    },
+    {
+      "code": 6001,
+      "name": "TokenNotNFT"
+    },
+    {
+      "code": 6002,
+      "name": "TokenAccountEmpty"
+    },
+    {
+      "code": 6003,
+      "name": "CliffGreaterThenDuration"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidDuration"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidEndingTime"
+    },
+    {
+      "code": 6006,
+      "name": "PositionUnInitialized"
+    },
+    {
+      "code": 6007,
+      "name": "LockerPaused"
+    },
+    {
+      "code": 6008,
+      "name": "NotUnlocked"
+    },
+    {
+      "code": 6009,
+      "name": "ClaimNotAllowed"
+    },
+    {
+      "code": 6010,
+      "name": "CliffNotEnded"
+    }
+  ]
+}
